@@ -18,7 +18,7 @@ public class InputDati
 	  private static Scanner creaScanner ()
 	  {
 	   Scanner creato = new Scanner(System.in);
-	   creato.useDelimiter(System.getProperty("line.separator"));
+	   //creato.useDelimiter(System.getProperty("line.separator"));
 	   return creato;
 	  }
 	  
