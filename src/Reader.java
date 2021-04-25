@@ -10,7 +10,7 @@ public class Reader {
     private static final String FILE_NAME_COMUNI = "comuni.xml";
     private static final String FILE_NAME_PERSONE = "inputPersone.xml";*/
 
-    public void readCodiciFiscali() {
+    public static void readCodiciFiscali() {
         XMLInputFactory xmlif = null;
         XMLStreamReader xmlr = null;
 
@@ -20,7 +20,7 @@ public class Reader {
             xmlr = xmlif.createXMLStreamReader("CodiceFiscale/XML/input/codiciFiscali.xml", new FileInputStream("CodiceFiscale/XML/input/codiciFiscali.xml"));
             while (xmlr.hasNext()) { // continua a leggere finché ha eventi a disposizione
                 if (xmlr.getEventType() == XMLStreamConstants.CHARACTERS) {
-                    DataProcessing.addToList(xmlr.getText());
+                    DataProcessing.addToCodici(xmlr.getText());
                 }
                 xmlr.next();
             }
@@ -30,17 +30,17 @@ public class Reader {
         }
     }
 
-    public void readinputPersone() {
+    public static void readInputPersone() {
         XMLInputFactory xmlif = null;
         XMLStreamReader xmlr = null;
 
         try {
-            int id;
+            int id = 0;
             String tagName = "";
-            String nome, cognome, comune, sesso;
-            Date dataNascita;
+            String nome="", cognome="", comune="", sesso="";
+            Date dataNascita = null;
             xmlif = XMLInputFactory.newInstance();
-            xmlr = xmlif.createXMLStreamReader("CodiceFiscale/XML/input/inputPersone.xml", new FileInputStream("CodiceFiscale/XML/input/inputPersone.xml"));
+            xmlr = xmlif.createXMLStreamReader("inputPersone.xml", new FileInputStream("inputPersone.xml"));
             while (xmlr.hasNext()) { // continua a leggere finché ha eventi a disposizione
                 switch (xmlr.getEventType()) { // switch sul tipo di evento
                     case XMLStreamConstants.START_ELEMENT: // inizio di un elemento: stampa il nome del tag e i suoi attributi
@@ -49,12 +49,9 @@ public class Reader {
                             id = Integer.parseInt(xmlr.getAttributeValue(0));
                         break;
                     case XMLStreamConstants.END_ELEMENT: // fine di un elemento: stampa il nome del tag chiuso
-                       if(xmlr.getLocalName().equals("persona"))
-                           //Persona() - costruttore
+                       if(xmlr.getLocalName().equals("/persona"))
+                           DataProcessing.addToPersone(new Persona(nome, cognome, comune, sesso, dataNascita, id));
                         break;
-                    case XMLStreamConstants.COMMENT:
-                        System.out.println("// commento " + xmlr.getText());
-                        break; // commento: ne stampa il contenuto
                     case XMLStreamConstants.CHARACTERS: // content all’interno di un elemento: stampa il testo
                         switch (tagName){
                             case "nome":

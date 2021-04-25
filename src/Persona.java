@@ -8,7 +8,7 @@ public class Persona {
     char sesso;
     Date data = new Date();
 
-    public Persona(String nome, String cognome, String luogoNascita, char sesso, Date data)
+    public Persona(String nome, String cognome, String luogoNascita, String sesso, Date data, int id)
     {
         this.nome=nome;
         this.cognome=cognome;
@@ -21,6 +21,10 @@ public class Persona {
         return nome;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getCognome() {
         return cognome;
     }
@@ -29,7 +33,7 @@ public class Persona {
         return luogoNascita;
     }
 
-    public char getSesso() {
+    public String getSesso() {
         return sesso;
     }
 

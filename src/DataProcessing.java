@@ -9,11 +9,22 @@ public class DataProcessing
         return false;
     }
 
-   public static void addToList(String s)
+   public static void addToCodici(String s)
    {
         codici.add(s);
    }
+    public static void addToPersone(Persona p)
+    {
+        persone.add(p);
+    }
 
+    public static ArrayList<String> getCodici() {
+        return codici;
+    }
+
+    public static ArrayList<Persona> getPersone() {
+        return persone;
+    }
    public static Date toDate (String s)
    {
        Date data = new Date(Integer.parseInt(s.substring(0,3), Integer.parseInt(s.substring(5,6),Integer.parseInt(s.substring(8,9)))));
