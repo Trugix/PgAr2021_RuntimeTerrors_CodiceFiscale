@@ -1,7 +1,7 @@
-import it.unibs.fp.mylib.InputDati;
+import it.unibs.fp.mylib.*;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(InputDati.leggiStringaNonVuota("Nome?"));
+        
     }
 }
