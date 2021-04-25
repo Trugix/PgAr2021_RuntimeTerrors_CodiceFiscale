@@ -4,6 +4,8 @@ import java.util.Date;
 public class DataProcessing
 {
     private static ArrayList <String> codici = new ArrayList<String>();
+    private static ArrayList <Persona> persone = new ArrayList<Persona>();
+
     public static boolean matchCode(String s)
     {
         return false;

@@ -1,12 +1,10 @@
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 public class Persona {
 
-    String nome, cognome, luogoNascita;
-    char sesso;
+    String nome, cognome, luogoNascita, sesso;
     Date data = new Date();
+    int id;
 
     public Persona(String nome, String cognome, String luogoNascita, String sesso, Date data, int id)
     {
@@ -15,6 +13,7 @@ public class Persona {
         this.luogoNascita=luogoNascita;
         this.sesso=sesso;
         this.data=data;
+        this.id = id;
     }
 
     public String getNome() {
