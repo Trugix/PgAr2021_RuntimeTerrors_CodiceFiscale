@@ -1,6 +1,6 @@
 import java.util.Date;
 
-public class Persona {
+public class Persona extends DataProcessing{
 
     String nome, cognome, luogoNascita, sesso, codiceFiscale;
     Data data;
@@ -99,13 +99,7 @@ public class Persona {
         this.codiceFiscale = codice;
     }
 
-    public String codificaLuogo(String luogo) {
-        for (Comune c : DataProcessing.getComuni()) {
-            if (c.getNome().equals(luogo))
-                return c.getCodice();
-        }
-        return "FUCK";
-    }
+
 
     private boolean isVocale(char c)                                                                                        //verifica se il carattere inserito è una vocale
     {
@@ -231,13 +225,20 @@ public class Persona {
             g = Integer.toString(giorno);
             g = "0" + g;
         }
+        else
+        {
+            g = Integer.toString(giorno);
+        }
         return g;
     }
 
-    /*private  String codificaLuogo(String luogo)
-    {
-
-    }*/
+    public String codificaLuogo(String luogo) {
+        for (Comune c : DataProcessing.getComuni()) {
+            if (c.getNome().equals(luogo))
+                return c.getCodice();
+        }
+        return "FUCK";
+    }
 
     private String codificaControllo(String cod)                                                                    //metodo per codificare l'ultimo carattere di controllo
     {
@@ -251,7 +252,7 @@ public class Persona {
 
     private String carattereControllo(char c, int indice)                                                       //metodo che restituisce un valore in base alla posizione(pari o dispari) e al carattere passato
     {
-        if (indice % 2 == 0) {
+        if (indice % 2 != 0) {
             int n;
             String s = String.valueOf(c);
             if (isNumero(s))                                                                                    //in caso di indice pari il numero coincide con il suo valore ritornato
