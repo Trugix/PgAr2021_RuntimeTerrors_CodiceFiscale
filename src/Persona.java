@@ -40,7 +40,7 @@ public class Persona {
         return sesso;
     }
 
-    public Date getData() {
+    public Data getData() {
         return data;
     }
 
@@ -96,7 +96,7 @@ public class Persona {
         codice += codificaControllo(codice);
         /*if(controlloOmonimia(codice))
             codice = cambiaCodice(codice);*/
-
+        this.codiceFiscale = codice;
     }
 
     public String codificaLuogo(String luogo) {
@@ -144,7 +144,32 @@ public class Persona {
         return terna;
     }
 
-    private int codificaAnno(int anno)                                                                                              //metodo che codifica le due cifre dell'anno
+    private String codificaNome(String s)                                                                                  //metodo per la codifica della terna di caratteri nel codice fiscale (per nome e cognome)
+    {
+        int num = 0, consonanti = 0;
+        String terna = "";
+        for (int i = 0; i < s.length(); i++) {
+            if (isVocale(s.charAt(i)) == false)
+                consonanti++;
+        }
+        if (consonanti >= 4) {
+            for (int i = 0; i < s.length(); i++) {
+                if (isVocale(s.charAt(i)) == false)                                                                              //verifica che il carattere sia una consonante
+                {
+                    if (i == 2) continue;
+                    terna += s.charAt(i);
+                    num++;
+                    if (num == 3)                                                                                                //se sono stati presi 3 caratteri termina
+                        break;
+                }
+            }
+            return terna;
+        } else {
+            return codificaCognome(s);
+        }
+    }
+
+    private String codificaAnno(int anno)                                                                                              //metodo che codifica le due cifre dell'anno
     {
         anno = anno % 100;
         if (anno <=10) return("0"+Integer.toString(anno));

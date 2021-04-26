@@ -38,7 +38,7 @@ public class Reader {
             int id = 0;
             String tagName = "";
             String nome="", cognome="", comune="", sesso="";
-            Date dataNascita = null;
+            Data dataNascita = null;
             xmlif = XMLInputFactory.newInstance();
             xmlr = xmlif.createXMLStreamReader(new FileInputStream("XML/input/inputPersone.xml"));
             while (xmlr.hasNext()) { // continua a leggere finché ha eventi a disposizione
@@ -58,19 +58,19 @@ public class Reader {
                                 break;
                         switch (tagName){
                             case "nome":
-                                nome = xmlr.getText();
+                                nome = s;
                                 break;
                             case "cognome":
-                                cognome = xmlr.getText();
+                                cognome = s;
                                 break;
                             case "sesso":
-                                sesso = xmlr.getText();
+                                sesso = s;
                                 break;
                             case "comune_nascita":
-                                comune = xmlr.getText();
+                                comune = s;
                                 break;
                             case "data_nascita":
-                                dataNascita = DataProcessing.toDate(xmlr.getText());
+                                dataNascita = DataProcessing.toDate(s);
                                 break;
                         }
                         break;
