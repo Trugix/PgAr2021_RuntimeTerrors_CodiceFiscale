@@ -3,16 +3,16 @@ import java.util.Date;
 public class Persona {
 
     String nome, cognome, luogoNascita, sesso, codiceFiscale;
-    Date data = new Date();
+    Data data;
     int id;
 
-    public Persona(String nome, String cognome, String luogoNascita, String sesso, Date data, int id)    //costruttore di Persona
+    public Persona(String nome, String cognome, String luogoNascita, String sesso, Data data, int id)    //costruttore di Persona
     {
-        this.nome=nome;
-        this.cognome=cognome;
-        this.luogoNascita=luogoNascita;
-        this.sesso=sesso;
-        this.data=data;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.luogoNascita = luogoNascita;
+        this.sesso = sesso;
+        this.data = data;
         this.id = id;
     }
 
@@ -67,9 +67,8 @@ public class Persona {
     }
 
     private boolean isNumero(String s) {                                                                            //verifica se la stringa inserita è composta da numeri
-        for (int i = 0; i < s.length(); i++)
-        {
-            if(!(Character.isDigit(s.charAt(i))))
+        for (int i = 0; i < s.length(); i++) {
+            if (!(Character.isDigit(s.charAt(i))))
                 return false;
         }
         return true;
@@ -77,9 +76,8 @@ public class Persona {
 
     private boolean isLettera(String s) {                                                                           //verifica se la stringa inserita è composta da lettere
 
-        for (int i = 0; i < s.length(); i++)
-        {
-            if(!(Character.isLetter(s.charAt(i))))
+        for (int i = 0; i < s.length(); i++) {
+            if (!(Character.isLetter(s.charAt(i))))
                 return false;
         }
         return true;
@@ -88,12 +86,12 @@ public class Persona {
     public void generaCodice()                                                                        //metodo che genera il codice fiscale dati dati iniziali
     {
         String codice = "";
-        codice += codificaTerna(this.cognome);
-        codice += codificaTerna(this.nome);
-        codice += codificaAnno(this.data.getYear());
-        codice += codificaMese(this.data.getMonth());
-        codice += codificaGiorno(this.data.getDay(), this.sesso);
-        //codice += codificaLuogo(persona.luogoNascita);
+        codice += codificaCognome(this.cognome);
+        codice += codificaNome(this.nome);
+        codice += codificaAnno(this.data.getAnno());
+        codice += codificaMese(this.data.getMese());
+        codice += codificaGiorno(this.data.getGiorno(), this.sesso);
+        codice += codificaLuogo(this.luogoNascita);
         codice = codice.toUpperCase();
         codice += codificaControllo(codice);
         /*if(controlloOmonimia(codice))
@@ -101,40 +99,44 @@ public class Persona {
 
     }
 
+    public String codificaLuogo(String luogo) {
+        for (Comune c : DataProcessing.getComuni()) {
+            if (c.getNome().equals(luogo))
+                return c.getCodice();
+        }
+        return "FUCK";
+    }
+
     private boolean isVocale(char c)                                                                                        //verifica se il carattere inserito è una vocale
     {
-        char [] Vocali = {'A', 'E', 'I', 'O', 'U'};
-        for(int i=0; i<Vocali.length; i++)
-        {
-            if(c == Vocali[i])
-                return  true;
+        char[] Vocali = {'A', 'E', 'I', 'O', 'U'};
+        for (int i = 0; i < Vocali.length; i++) {
+            if (c == Vocali[i])
+                return true;
         }
         return false;
     }
 
-    private String codificaTerna(String s)                                                                                  //metodo per la codifica della terna di caratteri nel codice fiscale (per nome e cognome)
+    private String codificaCognome(String s)                                                                                  //metodo per la codifica della terna del cognome E.
     {
-        int num=0;
+        int num = 0;
         String terna = "";
-        for(int i=0; i<s.length(); i++)
-        {
-            if(isVocale(s.charAt(i)) == false)                                                                              //verifica che il carattere sia una consonante
+        for (int i = 0; i < s.length(); i++) {
+            if (isVocale(s.charAt(i)) == false)                                                                              //verifica che il carattere sia una consonante
             {
                 terna += s.charAt(i);
                 num++;
-                if(num == 3)                                                                                                //se sono stati presi 3 caratteri termina
+                if (num == 3)                                                                                                //se sono stati presi 3 caratteri termina
                     break;
             }
         }
-        if(num<3)                                                                                                             // se sono stati presi meno di tre caratteri va a prenere n vocali fino a raggiungere la terna
+        if (num < 3)                                                                                                             // se sono stati presi meno di tre caratteri va a prenere n vocali fino a raggiungere la terna
         {
-            for(int i=0; i<s.length(); i++)
-            {
-                if(isVocale(s.charAt(i)))
-                {
+            for (int i = 0; i < s.length(); i++) {
+                if (isVocale(s.charAt(i))) {
                     terna += s.charAt(i);
                     num++;
-                    if(num == 3)
+                    if (num == 3)
                         break;
                 }
             }
@@ -144,15 +146,15 @@ public class Persona {
 
     private int codificaAnno(int anno)                                                                                              //metodo che codifica le due cifre dell'anno
     {
-        anno = anno%100;
-        return anno;
+        anno = anno % 100;
+        if (anno <=10) return("0"+Integer.toString(anno));
+        return Integer.toString(anno);
     }
 
     private char codificaMese(int mese)                                                                                                //metodo che restituisce un carattere dato il mese(int)
     {
         char m = ' ';
-        switch (mese)
-        {
+        switch (mese) {
             case 1:
                 m = 'A';
                 break;
@@ -195,14 +197,12 @@ public class Persona {
 
     private String codificaGiorno(int giorno, String sesso)                                                                 //metodo che codifica il giorno dato il giorno e il sesso
     {
-        String g = "";
-        if(sesso.equals("F") || sesso.equals("f"))
-        {
+        String g = Integer.toString(giorno);
+        if (sesso.equals("F") || sesso.equals("f")) {
             giorno += 40;
             g = Integer.toString(giorno);
         }
-        if(giorno < 10)
-        {
+        if (giorno < 10) {
             g = Integer.toString(giorno);
             g = "0" + g;
         }
@@ -217,8 +217,7 @@ public class Persona {
     private String codificaControllo(String cod)                                                                    //metodo per codificare l'ultimo carattere di controllo
     {
         int somma = 0;
-        for (int i=0; i<cod.length(); i++)
-        {
+        for (int i = 0; i < cod.length(); i++) {
             somma += Integer.parseInt(carattereControllo(cod.charAt(i), i));
         }
         String carattere = String.valueOf(carattere(somma));
@@ -227,30 +226,24 @@ public class Persona {
 
     private String carattereControllo(char c, int indice)                                                       //metodo che restituisce un valore in base alla posizione(pari o dispari) e al carattere passato
     {
-        if(indice%2 == 0)
-        {
+        if (indice % 2 == 0) {
             int n;
             String s = String.valueOf(c);
-            if(isNumero(s))                                                                                    //in caso di indice pari il numero coincide con il suo valore ritornato
+            if (isNumero(s))                                                                                    //in caso di indice pari il numero coincide con il suo valore ritornato
             {
                 return s;
-            }
-            else
-            {
-                for(int i=65; i<=90; i++)                                                                       //in caso di indice pari l'incremento è lineare(A-Z = 0-25) quindi è possibile restituire il valore tramite conversione del codice ASCII
+            } else {
+                for (int i = 65; i <= 90; i++)                                                                       //in caso di indice pari l'incremento è lineare(A-Z = 0-25) quindi è possibile restituire il valore tramite conversione del codice ASCII
                 {
-                    if((int) c == i)
-                    {
+                    if ((int) c == i) {
                         n = i - 65;
                         s = Integer.toString(n);
                         return s;
                     }
                 }
             }
-        }
-        else
-        {
-            switch(c)                                                                                                        //caso di indice dispari
+        } else {
+            switch (c)                                                                                                        //caso di indice dispari
             {
                 case '0':
                     return "1";
@@ -333,9 +326,8 @@ public class Persona {
     {
         int n = 0;
         s = s % 26;
-        for(int i=65; i<=90; i++)
-        {
-            if(n == s) {
+        for (int i = 65; i <= 90; i++) {
+            if (n == s) {
                 char c = (char) i;
                 return c;
             }
@@ -344,15 +336,13 @@ public class Persona {
         return '-';
     }
 
-    private boolean controlloOmonimia(String cod)
-    {
+    private boolean controlloOmonimia(String cod) {
         //if(cod.equalsto(codici))                                                                                               //cerco se presente un "gemello"
         return true;
     }
 
 
-    private  String cambiaCodice(String cod)
-    {
+    private String cambiaCodice(String cod) {
         String s;
         s = cod.substring(12, 15);
         s.replace('0', 'L');
@@ -371,10 +361,9 @@ public class Persona {
         return cod;
     }
 
-    private String eliminaUltimo(String s)
-    {
+    private String eliminaUltimo(String s) {
         String c;
-        c = s.substring(0, s.length()-1);
+        c = s.substring(0, s.length() - 1);
         return c;
     }
 }

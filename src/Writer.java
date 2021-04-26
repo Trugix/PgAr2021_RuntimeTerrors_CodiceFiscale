@@ -1,2 +1,4 @@
-public class Writer {
+public class Writer
+{
+
 }
