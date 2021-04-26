@@ -228,7 +228,7 @@ public class Persona {
             }
             else
             {
-                for(int i=65; i<=90; i++)
+                for(int i=65; i<=90; i++)                                                                       //in caso di indice pari l'incremento è lineare(A-Z = 0-25) quindi è possibile restituire il valore tramite conversione del codice ASCII
                 {
                     if((int) c == i)
                     {
@@ -241,7 +241,7 @@ public class Persona {
         }
         else
         {
-            switch(c)
+            switch(c)                                                                                                        //caso di indice dispari
             {
                 case '0':
                     return "1";
@@ -320,7 +320,7 @@ public class Persona {
         return "-1";
     }
 
-    private char carattere(int s)
+    private char carattere(int s)                                                                                                   //metodo che calcola il resto e restituisce il carattere corrispondente tramite conversione del codice ASCII
     {
         int n = 0;
         s = s % 26;
