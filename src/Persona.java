@@ -28,6 +28,10 @@ public class Persona {
         return cognome;
     }
 
+    public String getCodiceFiscale() {
+        return codiceFiscale;
+    }
+
     public String getLuogoNascita() {
         return luogoNascita;
     }
@@ -38,6 +42,10 @@ public class Persona {
 
     public Date getData() {
         return data;
+    }
+
+    public void setCodiceFiscale(String codiceFiscale) {
+        this.codiceFiscale = codiceFiscale;
     }
 
     private boolean check(String codice)                                                                            // verifica che il codice fiscale sia stato inserito correttamente
@@ -77,21 +85,20 @@ public class Persona {
         return true;
     }
 
-    private String generaCodice(Persona persona)                                                                        //metodo che genera il codice fiscale dati dati iniziali
+    public void generaCodice()                                                                        //metodo che genera il codice fiscale dati dati iniziali
     {
         String codice = "";
-        codice += codificaTerna(persona.getCognome());
-        codice += codificaTerna(persona.getNome());
-        codice += codificaAnno(persona.getData().getYear());
-        codice += codificaMese(persona.getData().getMonth());
-        codice += codificaGiorno(persona.getData().getDay(), persona.getSesso());
+        codice += codificaTerna(this.cognome);
+        codice += codificaTerna(this.nome);
+        codice += codificaAnno(this.data.getYear());
+        codice += codificaMese(this.data.getMonth());
+        codice += codificaGiorno(this.data.getDay(), this.sesso);
         //codice += codificaLuogo(persona.luogoNascita);
         codice = codice.toUpperCase();
         codice += codificaControllo(codice);
         /*if(controlloOmonimia(codice))
             codice = cambiaCodice(codice);*/
 
-        return codice;
     }
 
     private boolean isVocale(char c)                                                                                        //verifica se il carattere inserito è una vocale
