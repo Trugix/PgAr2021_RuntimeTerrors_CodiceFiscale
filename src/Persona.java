@@ -2,7 +2,7 @@ import java.util.Date;
 
 public class Persona {
 
-    String nome, cognome, luogoNascita, sesso;
+    String nome, cognome, luogoNascita, sesso, codiceFiscale;
     Date data = new Date();
     int id;
 
@@ -28,6 +28,10 @@ public class Persona {
         return cognome;
     }
 
+    public String getCodiceFiscale() {
+        return codiceFiscale;
+    }
+
     public String getLuogoNascita() {
         return luogoNascita;
     }
@@ -38,6 +42,10 @@ public class Persona {
 
     public Date getData() {
         return data;
+    }
+
+    public void setCodiceFiscale(String codiceFiscale) {
+        this.codiceFiscale = codiceFiscale;
     }
 
     private boolean check(String codice)                                                                            // verifica che il codice fiscale sia stato inserito correttamente
@@ -77,19 +85,20 @@ public class Persona {
         return true;
     }
 
-    private String generaCodice(Persona persona)                                                                        //metodo che genera il codice fiscale dai dati iniziali
+    public void generaCodice()                                                                        //metodo che genera il codice fiscale dati dati iniziali
     {
         String codice = "";
-        codice += codificaTerna(persona.getCognome());
-        codice += codificaTerna(persona.getNome());
-        codice += codificaAnno(persona.getData().getYear());
-        codice += codificaMese(persona.getData().getMonth());
-        codice += codificaGiorno(persona.getData().getDay(), persona.getSesso());
+        codice += codificaTerna(this.cognome);
+        codice += codificaTerna(this.nome);
+        codice += codificaAnno(this.data.getYear());
+        codice += codificaMese(this.data.getMonth());
+        codice += codificaGiorno(this.data.getDay(), this.sesso);
         //codice += codificaLuogo(persona.luogoNascita);
         codice = codice.toUpperCase();
         codice += codificaControllo(codice);
+        /*if(controlloOmonimia(codice))
+            codice = cambiaCodice(codice);*/
 
-        return codice;
     }
 
     private boolean isVocale(char c)                                                                                        //verifica se il carattere inserito è una vocale
@@ -335,4 +344,37 @@ public class Persona {
         return '-';
     }
 
+    private boolean controlloOmonimia(String cod)
+    {
+        //if(cod.equalsto(codici))                                                                                               //cerco se presente un "gemello"
+        return true;
+    }
+
+
+    private  String cambiaCodice(String cod)
+    {
+        String s;
+        s = cod.substring(12, 15);
+        s.replace('0', 'L');
+        s.replace('1', 'M');
+        s.replace('2', 'N');
+        s.replace('3', 'P');
+        s.replace('4', 'Q');
+        s.replace('5', 'R');
+        s.replace('6', 'S');
+        s.replace('7', 'T');
+        s.replace('8', 'U');
+        s.replace('9', 'V');
+        cod = eliminaUltimo(cod);
+        cod.replace(cod.substring(12, 15), s);
+        cod += codificaControllo(cod);
+        return cod;
+    }
+
+    private String eliminaUltimo(String s)
+    {
+        String c;
+        c = s.substring(0, s.length()-1);
+        return c;
+    }
 }

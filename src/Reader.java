@@ -17,7 +17,7 @@ public class Reader {
         try {
             int size = 0;
             xmlif = XMLInputFactory.newInstance();
-            xmlr = xmlif.createXMLStreamReader("CodiceFiscale/XML/input/codiciFiscali.xml", new FileInputStream("CodiceFiscale/XML/input/codiciFiscali.xml"));
+            xmlr = xmlif.createXMLStreamReader("XML/input/codiciFiscali.xml", new FileInputStream("XML/input/codiciFiscali.xml"));
             while (xmlr.hasNext()) { // continua a leggere finché ha eventi a disposizione
                 if (xmlr.getEventType() == XMLStreamConstants.CHARACTERS) {
                     DataProcessing.addToCodici(xmlr.getText());
@@ -39,9 +39,8 @@ public class Reader {
             String tagName = "";
             String nome="", cognome="", comune="", sesso="";
             Date dataNascita = null;
-            ClassLoader classLoader = ClassLoader.getSystemClassLoader();
             xmlif = XMLInputFactory.newInstance();
-            xmlr = xmlif.createXMLStreamReader("inputPersone.xml", new FileInputStream("inputPersone.xml));
+            xmlr = xmlif.createXMLStreamReader(/*"XML/input/inputPersone.xml", */new FileInputStream("XML/input/inputPersone.xml"));
             while (xmlr.hasNext()) { // continua a leggere finché ha eventi a disposizione
                 switch (xmlr.getEventType()) { // switch sul tipo di evento
                     case XMLStreamConstants.START_ELEMENT: // inizio di un elemento: stampa il nome del tag e i suoi attributi
@@ -50,10 +49,13 @@ public class Reader {
                             id = Integer.parseInt(xmlr.getAttributeValue(0));
                         break;
                     case XMLStreamConstants.END_ELEMENT: // fine di un elemento: stampa il nome del tag chiuso
-                       if(xmlr.getLocalName().equals("/persona"))
+                       if(xmlr.getLocalName().equals("persona"))
                            DataProcessing.addToPersone(new Persona(nome, cognome, comune, sesso, dataNascita, id));
                         break;
                     case XMLStreamConstants.CHARACTERS: // content all’interno di un elemento: stampa il testo
+                        String s = xmlr.getText();
+                        if(s.contains("\n")) //Questo if serve ad evitare che le varie stringhe vengano sostituite da "\n" e sue varianti tipo "\n "
+                                break;
                         switch (tagName){
                             case "nome":
                                 nome = xmlr.getText();

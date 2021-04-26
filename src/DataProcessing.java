@@ -15,9 +15,11 @@ public class DataProcessing
    {
         codici.add(s);
    }
-    public static void addToPersone(Persona p)
+
+   public static void addToPersone(Persona p)
     {
         persone.add(p);
+        p.generaCodice();
     }
 
     public static ArrayList<String> getCodici() {
@@ -29,7 +31,11 @@ public class DataProcessing
     }
    public static Date toDate (String s)
    {
-       Date data = new Date(Integer.parseInt(s.substring(0,3), Integer.parseInt(s.substring(5,6),Integer.parseInt(s.substring(8,9)))));
+       int anno, mese, giorno;
+       anno= Integer.parseInt(s.substring(0,4));
+       mese=  Integer.parseInt(s.substring(6,7));
+       giorno = Integer.parseInt(s.substring(8,10));
+       Date data = new Date(anno-1900, mese-1, giorno); //commento assurdo da fare E.
        return data;
    }
 }
