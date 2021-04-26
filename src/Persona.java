@@ -77,7 +77,7 @@ public class Persona {
         return true;
     }
 
-    private String generaCodice(Persona persona)                                                                        //metodo che genera il codice fiscale dati dati iniziali
+    private String generaCodice(Persona persona)                                                                        //metodo che genera il codice fiscale dai dati iniziali
     {
         String codice = "";
         codice += codificaTerna(persona.getCognome());

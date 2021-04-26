@@ -39,8 +39,9 @@ public class Reader {
             String tagName = "";
             String nome="", cognome="", comune="", sesso="";
             Date dataNascita = null;
+            ClassLoader classLoader = ClassLoader.getSystemClassLoader();
             xmlif = XMLInputFactory.newInstance();
-            xmlr = xmlif.createXMLStreamReader("inputPersone.xml", new FileInputStream("inputPersone.xml"));
+            xmlr = xmlif.createXMLStreamReader("inputPersone.xml", new FileInputStream("inputPersone.xml));
             while (xmlr.hasNext()) { // continua a leggere finché ha eventi a disposizione
                 switch (xmlr.getEventType()) { // switch sul tipo di evento
                     case XMLStreamConstants.START_ELEMENT: // inizio di un elemento: stampa il nome del tag e i suoi attributi
