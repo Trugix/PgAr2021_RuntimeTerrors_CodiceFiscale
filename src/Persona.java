@@ -88,6 +88,8 @@ public class Persona {
         //codice += codificaLuogo(persona.luogoNascita);
         codice = codice.toUpperCase();
         codice += codificaControllo(codice);
+        /*if(controlloOmonimia(codice))
+            codice = cambiaCodice(codice);*/
 
         return codice;
     }
@@ -335,4 +337,37 @@ public class Persona {
         return '-';
     }
 
+    private boolean controlloOmonimia(String cod)
+    {
+        //if(cod.equalsto(codici))                                                                                               //cerco se presente un "gemello"
+        return true;
+    }
+
+
+    private  String cambiaCodice(String cod)
+    {
+        String s;
+        s = cod.substring(12, 15);
+        s.replace('0', 'L');
+        s.replace('1', 'M');
+        s.replace('2', 'N');
+        s.replace('3', 'P');
+        s.replace('4', 'Q');
+        s.replace('5', 'R');
+        s.replace('6', 'S');
+        s.replace('7', 'T');
+        s.replace('8', 'U');
+        s.replace('9', 'V');
+        cod = eliminaUltimo(cod);
+        cod.replace(cod.substring(12, 15), s);
+        cod += codificaControllo(cod);
+        return cod;
+    }
+
+    private String eliminaUltimo(String s)
+    {
+        String c;
+        c = s.substring(0, s.length()-1);
+        return c;
+    }
 }
