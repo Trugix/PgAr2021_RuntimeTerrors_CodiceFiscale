@@ -2,7 +2,7 @@ import java.util.Date;
 
 public class Persona {
 
-    String nome, cognome, luogoNascita, sesso;
+    String nome, cognome, luogoNascita, sesso, codiceFiscale;
     Date data = new Date();
     int id;
 

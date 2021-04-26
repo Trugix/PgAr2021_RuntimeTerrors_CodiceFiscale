@@ -15,7 +15,8 @@ public class DataProcessing
    {
         codici.add(s);
    }
-    public static void addToPersone(Persona p)
+
+   public static void addToPersone(Persona p)
     {
         persone.add(p);
         p.generaCodice();
