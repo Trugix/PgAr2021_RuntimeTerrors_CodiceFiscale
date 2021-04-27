@@ -48,41 +48,6 @@ public class Persona{
         this.codiceFiscale = codiceFiscale;
     }
 
-    private boolean check(String codice)                                                                            // verifica che il codice fiscale sia stato inserito correttamente
-    {
-        codice = codice.toUpperCase();
-        String cognome = codice.substring(0, 3);
-        String nome = codice.substring(3, 6);
-        String anno = codice.substring(6, 8);
-        String mese = codice.substring(8, 9);
-        String giorno = codice.substring(9, 11);
-        String luogoNum = codice.substring(11, 12);
-        String luogoLettera = codice.substring(12, 15);
-        String controllo = codice.substring(15, 16);
-
-        if (isLettera(cognome) && isLettera(nome) && isNumero(anno) && isLettera(mese) && isNumero(giorno) && isNumero(luogoNum) && isLettera(luogoLettera) && isLettera(controllo))
-            return true;
-        else
-            return false;
-    }
-
-    private boolean isNumero(String s) {                                                                            //verifica se la stringa inserita è composta da numeri
-        for (int i = 0; i < s.length(); i++) {
-            if (!(Character.isDigit(s.charAt(i))))
-                return false;
-        }
-        return true;
-    }
-
-    private boolean isLettera(String s) {                                                                           //verifica se la stringa inserita è composta da lettere
-
-        for (int i = 0; i < s.length(); i++) {
-            if (!(Character.isLetter(s.charAt(i))))
-                return false;
-        }
-        return true;
-    }
-
     public void generaCodice()                                                                        //metodo che genera il codice fiscale dati dati iniziali
     {
         String codice = "";
@@ -99,24 +64,12 @@ public class Persona{
         this.codiceFiscale = codice;
     }
 
-
-
-    private boolean isVocale(char c)                                                                                        //verifica se il carattere inserito è una vocale
-    {
-        char[] Vocali = {'A', 'E', 'I', 'O', 'U'};
-        for (int i = 0; i < Vocali.length; i++) {
-            if (c == Vocali[i])
-                return true;
-        }
-        return false;
-    }
-
     private String codificaCognome(String s)                                                                                  //metodo per la codifica della terna del cognome E.
     {
         int num = 0;
         String terna = "";
         for (int i = 0; i < s.length(); i++) {
-            if (isVocale(s.charAt(i)) == false)                                                                              //verifica che il carattere sia una consonante
+            if (DataProcessing.isVocale(s.charAt(i)) == false)                                                                              //verifica che il carattere sia una consonante
             {
                 terna += s.charAt(i);
                 num++;
@@ -127,7 +80,7 @@ public class Persona{
         if (num < 3)                                                                                                             // se sono stati presi meno di tre caratteri va a prenere n vocali fino a raggiungere la terna
         {
             for (int i = 0; i < s.length(); i++) {
-                if (isVocale(s.charAt(i))) {
+                if (DataProcessing.isVocale(s.charAt(i))) {
                     terna += s.charAt(i);
                     num++;
                     if (num == 3)
@@ -143,12 +96,12 @@ public class Persona{
         int num = 0, consonanti = 0;
         String terna = "";
         for (int i = 0; i < s.length(); i++) {
-            if (isVocale(s.charAt(i)) == false)
+            if (DataProcessing.isVocale(s.charAt(i)) == false)
                 consonanti++;
         }
         if (consonanti >= 4) {
             for (int i = 0; i < s.length(); i++) {
-                if (isVocale(s.charAt(i)) == false)                                                                              //verifica che il carattere sia una consonante
+                if (DataProcessing.isVocale(s.charAt(i)) == false)                                                                              //verifica che il carattere sia una consonante
                 {
                     if (i == 2) continue;
                     terna += s.charAt(i);
@@ -255,7 +208,7 @@ public class Persona{
         if (indice % 2 != 0) {
             int n;
             String s = String.valueOf(c);
-            if (isNumero(s))                                                                                    //in caso di indice pari il numero coincide con il suo valore ritornato
+            if (DataProcessing.isNumero(s))                                                                                    //in caso di indice pari il numero coincide con il suo valore ritornato
             {
                 return s;
             } else {
