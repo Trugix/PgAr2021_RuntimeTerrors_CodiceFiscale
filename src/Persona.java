@@ -1,6 +1,6 @@
 import java.util.Date;
 
-public class Persona extends DataProcessing{
+public class Persona{
 
     String nome, cognome, luogoNascita, sesso, codiceFiscale;
     Data data;
@@ -94,8 +94,8 @@ public class Persona extends DataProcessing{
         codice += codificaLuogo(this.luogoNascita);
         codice = codice.toUpperCase();
         codice += codificaControllo(codice);
-        /*if(controlloOmonimia(codice))
-            codice = cambiaCodice(codice);*/
+        if(controlloOmonimia(codice))
+            codice = cambiaCodice(codice);
         this.codiceFiscale = codice;
     }
 
@@ -363,7 +363,13 @@ public class Persona extends DataProcessing{
     }
 
     private boolean controlloOmonimia(String cod) {
-        //if(cod.equalsto(codici))                                                                                               //cerco se presente un "gemello"
+        for(String c: DataProcessing.getCodici())
+        {
+            if (c.equals(cod))
+                return true;
+            else
+                return false;
+        }
         return true;
     }
 
