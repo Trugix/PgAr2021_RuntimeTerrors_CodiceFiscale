@@ -17,8 +17,11 @@ public class Reader {
             xmlif = XMLInputFactory.newInstance();
             xmlr = xmlif.createXMLStreamReader(new FileInputStream("XML/input/codiciFiscali.xml"));
             while (xmlr.hasNext()) { // continua a leggere finché ha eventi a disposizione
-                if (xmlr.getEventType() == XMLStreamConstants.CHARACTERS) {
-                    DataProcessing.addToCodici(xmlr.getText());
+                if (xmlr.getEventType() == XMLStreamConstants.CHARACTERS)
+                {
+                    String s = xmlr.getText();
+                    if(s.contains("\n")==false) //Questo if serve ad evitare che le varie stringhe vengano sostituite da "\n" e sue varianti tipo "\n "
+                        DataProcessing.addToCodici(s);
                 }
                 xmlr.next();
             }
@@ -76,7 +79,7 @@ public class Reader {
                 xmlr.next();
             }
         } catch (Exception e) {
-            System.out.println("Errore");
+            System.out.println("Errore in Input Persone");
             System.out.println(e.getMessage());
         }
     }
@@ -117,7 +120,7 @@ public class Reader {
                 xmlr.next();
             }
         } catch (Exception e) {
-            System.out.println("Errore");
+            System.out.println("Errore in comuni");
             System.out.println(e.getMessage());
         }
     }

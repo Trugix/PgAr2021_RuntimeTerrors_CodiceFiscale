@@ -2,8 +2,10 @@ import java.util.Date;
 
 public class Persona{
 
-    String nome, cognome, luogoNascita, sesso, codiceFiscale;
-    Data data;
+    private String nome, cognome, luogoNascita, sesso, codiceFiscale;
+    private Data data;
+    private boolean matched = false;
+
     int id;
 
     public Persona(String nome, String cognome, String luogoNascita, String sesso, Data data, int id)    //costruttore di Persona
@@ -42,6 +44,14 @@ public class Persona{
 
     public Data getData() {
         return data;
+    }
+
+    public boolean isMatched() {
+        return matched;
+    }
+
+    public void setMatched(boolean b) {
+        this.matched = b;
     }
 
     public void setCodiceFiscale(String codiceFiscale) {
