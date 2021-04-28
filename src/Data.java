@@ -33,4 +33,9 @@ public class Data {
         this.giorno = giorno;
     }
 
+    public String dataToString ()
+    {
+        return this.anno + "-" + this.mese + "-" + this.giorno;
+    }
+
 }

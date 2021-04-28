@@ -69,7 +69,7 @@ public class Persona{
         int num = 0;
         String terna = "";
         for (int i = 0; i < s.length(); i++) {
-            if (DataProcessing.isVocale(s.charAt(i)) == false)                                                                              //verifica che il carattere sia una consonante
+            if (!DataProcessing.isVocale(s.charAt(i)))                                                                              //verifica che il carattere sia una consonante
             {
                 terna += s.charAt(i);
                 num++;
@@ -329,7 +329,7 @@ public class Persona{
 
     private String cambiaCodice(String cod) {
         String s;
-        s = cod.substring(12, 15);
+        s = cod.substring(12, 14);
         s.replace('0', 'L');
         s.replace('1', 'M');
         s.replace('2', 'N');
@@ -341,7 +341,7 @@ public class Persona{
         s.replace('8', 'U');
         s.replace('9', 'V');
         cod = eliminaUltimo(cod);
-        cod.replace(cod.substring(12, 15), s);
+        cod.replace(cod.substring(12, 14), s);
         cod += codificaControllo(cod);
         return cod;
     }

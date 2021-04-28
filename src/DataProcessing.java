@@ -3,9 +3,9 @@ import java.util.ArrayList;
 public class DataProcessing {
     private static ArrayList<String> codici = new ArrayList<String>();
     private static ArrayList<String> codiciValidi = new ArrayList<String>();
-    private static ArrayList<String> codiciPresenti = new ArrayList<String>();
-    private static ArrayList<String> codiciSpaiati = new ArrayList<String>();
     private static ArrayList<String> codiciInvalidi = new ArrayList<String>();
+    private static ArrayList<String> codiciAppaiati = new ArrayList<String>();
+    private static ArrayList<String> codiciSpaiati = new ArrayList<String>();
     private static ArrayList<Persona> persone = new ArrayList<Persona>();
     private static ArrayList<Comune> comuni = new ArrayList<Comune>();
 
@@ -34,6 +34,14 @@ public class DataProcessing {
         return persone;
     }
 
+    public static ArrayList<String> getCodiciInvalidi() {
+        return codiciInvalidi;
+    }
+
+    public static ArrayList<String> getCodiciSpaiati() {
+        return codiciSpaiati;
+    }
+
     public static Data toDate(String s) //data una stringa la trasforma in una data
     {
         int anno, mese, giorno;
@@ -44,26 +52,41 @@ public class DataProcessing {
         return data;
     }
 
-    public static void codeSorting() {
-        for (String c : codiciValidi) {
+    public static void codeSorting()
+    {
+        boolean find;
+        for (String s: codici)
+        {
+            if (check(s)) codiciValidi.add(s);
+            else codiciInvalidi.add(s);
+        }
+        for (String s : codiciValidi)
+        {
+            find=false;
             for (Persona p : persone) {
-                if (p.getCodiceFiscale().equals(c)) codiciPresenti.add(c);
-                else codiciSpaiati.add(c);
+                if (p.getCodiceFiscale().equals(s)) {
+                    codiciAppaiati.add(s);
+                    find = true;
+                    p.setMatched(true);
+                    break;
+                }
             }
+            if (!find) codiciSpaiati.add(s);
         }
     }
 
     public static boolean check(String codice)                                                                            // verifica che il codice fiscale sia stato inserito correttamente
     {
         codice = codice.toUpperCase();
-        String cognome = codice.substring(0, 3);
-        String nome = codice.substring(3, 6);
-        String anno = codice.substring(6, 8);
-        String mese = codice.substring(8, 9);
-        String giorno = codice.substring(9, 11);
-        String luogoNum = codice.substring(11, 12);
-        String luogoLettera = codice.substring(12, 15);
-        String controllo = codice.substring(15, 16);
+        if (codice.length()!=16) return false;
+        String cognome = codice.substring(0, 2);
+        String nome = codice.substring(3, 5);
+        String anno = codice.substring(6, 7);
+        String mese = Character.toString(codice.charAt(8));
+        String giorno = codice.substring(9, 10);
+        String luogoLettera = Character.toString(codice.charAt(11));
+        String luogoNum = codice.substring(12, 14);
+        String controllo = Character.toString(codice.charAt(15));
 
         if (isLettera(cognome) && isLettera(nome) && isNumero(anno) && isLettera(mese) && isNumero(giorno) && isNumero(luogoNum) && isLettera(luogoLettera) && isLettera(controllo))
             return true;

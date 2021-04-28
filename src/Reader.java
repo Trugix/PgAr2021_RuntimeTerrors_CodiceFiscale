@@ -2,8 +2,6 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamConstants;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.Date;
 
 public class Reader {
    /* private static final String FILE_NAME_CODICI = "codiciFiscali.xml";
@@ -25,7 +23,7 @@ public class Reader {
                 xmlr.next();
             }
         } catch (Exception e) {
-            System.out.println("Errore");
+            System.out.println("Errore in readCodiciFiscali");
             System.out.println(e.getMessage());
         }
     }

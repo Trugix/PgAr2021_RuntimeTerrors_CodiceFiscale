@@ -7000,11 +7000,4 @@
         <comune_nascita>BRESCIA</comune_nascita>
         <data_nascita>1998-10-05</data_nascita>
     </persona>
-    <persona id="1000">
-        <nome>RUGGERO</nome>
-        <cognome>SIGNORONI</cognome>
-        <sesso>M</sesso>
-        <comune_nascita>BRESCIA</comune_nascita>
-        <data_nascita>2001-09-06</data_nascita>
-    </persona>
 </persone>
