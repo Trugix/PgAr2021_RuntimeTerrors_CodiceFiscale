@@ -33,6 +33,10 @@ public class Data {
 		this.giorno = giorno;
 	}
 
+	/**
+	 * Converte una data in una stringa
+	 * @return
+	 */
 	public String dataToString() {
 		return this.anno + "-" + this.mese + "-" + this.giorno;
 	}
