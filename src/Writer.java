@@ -91,6 +91,7 @@ public class Writer {
 			xmlw.writeEndDocument(); // scrittura della fine del documento
 			xmlw.flush(); // svuota il buffer e procede alla scrittura
 			xmlw.close(); // chiusura del documento e delle risorse impiegate
+			System.out.println("Output generato, arrivederci");
 		} catch (Exception e) {
 			System.out.println("Errore nel writer:");
 			System.out.println(e.getMessage());
