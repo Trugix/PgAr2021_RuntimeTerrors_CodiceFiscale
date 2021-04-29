@@ -89,40 +89,38 @@ public class Reader {
         XMLInputFactory xmlif = null;
         XMLStreamReader xmlr = null;
 
-        try
-        {
-            xmlif = XMLInputFactory.newInstance();
-            xmlr = xmlif.createXMLStreamReader(new FileInputStream("XML/input/comuni.xml"));
-            String nome="",codice="",tagName="";
-            while (xmlr.hasNext()) { // continua a leggere finché ha eventi a disposizione
-                switch (xmlr.getEventType()) { // switch sul tipo di evento
-                    case XMLStreamConstants.START_ELEMENT: // inizio di un elemento: stampa il nome del tag e i suoi attributi
-                        tagName = xmlr.getLocalName();
-                    case XMLStreamConstants.END_ELEMENT: // fine di un elemento: stampa il nome del tag chiuso
-                        if(xmlr.getLocalName().equals("comune"))
-                            DataProcessing.addToComuni(new Comune(nome, codice));
-                        break;
-                    case XMLStreamConstants.CHARACTERS: // content all’interno di un elemento: stampa il testo
-                        String s = xmlr.getText();
-                        if(s.contains("\n")) //Questo if serve ad evitare che le varie stringhe vengano sostituite da "\n" e sue varianti tipo "\n "
-                            break;
-                        switch (tagName)
-                        {
-                            case "nome":
-                                nome = s;
-                                break;
-                            case "codice":
-                                codice = s;
-                                break;
-                        }
-                        break;
-                }
-                xmlr.next();
-            }
-        } catch (Exception e) {
-            System.out.println("Errore in comuni");
-            System.out.println(e.getMessage());
-        }
-    }
+		try {
+			xmlif = XMLInputFactory.newInstance();
+			xmlr = xmlif.createXMLStreamReader(new FileInputStream("XML/input/comuni.xml"));
+			String nome = "", codice = "", tagName = "";
+			while (xmlr.hasNext()) { // continua a leggere finché ha eventi a disposizione
+				switch (xmlr.getEventType()) { // switch sul tipo di evento
+					case XMLStreamConstants.START_ELEMENT: // inizio di un elemento: stampa il nome del tag e i suoi attributi
+						tagName = xmlr.getLocalName();
+					case XMLStreamConstants.END_ELEMENT: // fine di un elemento: stampa il nome del tag chiuso
+						if (xmlr.getLocalName().equals("comune"))
+							DataProcessing.addToComuni(new Comune(nome, codice));
+						break;
+					case XMLStreamConstants.CHARACTERS: // content all’interno di un elemento: stampa il testo
+						String s = xmlr.getText();
+						if (s.contains("\n")) //Questo if serve ad evitare che le varie stringhe vengano sostituite da "\n" e sue varianti tipo "\n "
+							break;
+						switch (tagName) {
+							case "nome":
+								nome = s;
+								break;
+							case "codice":
+								codice = s;
+								break;
+						}
+						break;
+				}
+				xmlr.next();
+			}
+		} catch (Exception e) {
+			System.out.println("Errore in comuni");
+			System.out.println(e.getMessage());
+		}
+	}
 
 }

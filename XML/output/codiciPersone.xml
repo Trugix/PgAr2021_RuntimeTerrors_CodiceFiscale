@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <output>
 <persone number="1000">
-   <persona id="0">
+    <persona id="0">
         <nome>GIUSEPPE</nome>
         <cognome>MUSSO</cognome>
         <sesso>M</sesso>
@@ -7191,7 +7191,7 @@
         <sesso>F</sesso>
         <comune_nascita>POMPU</comune_nascita>
         <data_nascita>1938-11-21</data_nascita>
-        <codice_fiscale>CNCNRO38S61G817E</codice_fiscale>
+        <codice_fiscale>ASSENTE</codice_fiscale>
     </persona>
     <persona id="899">
         <nome>GIOIA</nome>
@@ -8013,7 +8013,7 @@
         <codice id="6">SRGLRD96B31I3O2G</codice>
         <codice id="7">BRRMNI92T45E798ME</codice>
         </invalidi>
-    <spaiati numero="161">
+    <spaiati numero="162">
         <codice id="0">DLFSKL69D17M176P</codice>
         <codice id="1">STLSPR35T49B196T</codice>
         <codice id="2">GRTCHA10L69A017L</codice>
@@ -8175,6 +8175,7 @@
         <codice id="158">GCSSRN06E45F632Z</codice>
         <codice id="159">GRDFLV98E01B157A</codice>
         <codice id="160">FSTPLA98M01B157A</codice>
+        <codice id="161">CNCNRO38S61G817E</codice>
         </spaiati>
     </codici>
 </output>

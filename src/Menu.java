@@ -1,27 +1,46 @@
 import it.unibs.fp.mylib.*;
 
 public class Menu {
+	private final static String BENVENUTO = "Benvenuto!\nProgramma di Edoardo Cesari, Andrea Carrara, e Ruggero Signoroni";
+	private final static String SCELTA_FILE = "Vuoi utilizzare i file di input predefiniti?: ";
+	private final static String SCELTA_PERSONE = "Inserire 1 per cambiare il file delle persone.";
+	private final static String SCELTA_CODICI = "Inserire 2 per cambiare il file dei codici.";
+	private final static String SCELTA_ESCI = "Inserire 3 per confermare e continuare il programma.";
+	private final static String INSERIMENTO = "Inserire il nome del nuovo file: ";
+	private final static String RUN_TIME_TERRORS = "Errore, codice non riconosciuto.";
 
-    private final static  String BENVENUTO = "Benvenuto, questo programma permette di verificare o di generare un codice fiscale";
-    private final static String SCEGLI_VERIFICA = "Verifica di un codice fiscale";
-    private final static String SCEGLI_GENERA = "Genera un codice fiscale";
-    private final static String [] SCELTA={SCEGLI_VERIFICA, SCEGLI_GENERA};
-    private final static String TITOLO = "Scegli una delle opzioni seguenti";
+	public static void stampaMenu() {
+		boolean leave = false;
+		System.out.println(BENVENUTO);
+		if (!(InputDati.yesOrNo(SCELTA_FILE))) {
+			do {
+				System.out.println(SCELTA_PERSONE);
+				System.out.println(SCELTA_CODICI);
+				System.out.println(SCELTA_ESCI);
 
-    public void stampaMenu()
-    {
-        MyMenu menu = new MyMenu(TITOLO, SCELTA);
-        int scelta;
-        System.out.println(BENVENUTO);
-        scelta = menu.scegli();
-        switch(scelta)
-        {
-            case 1:
-                //check(codice);
-                break;
-            case 2:
-                //genera(persona);
-                break;
-        }
-    }
+				switch (InputDati.leggiInteroPositivo("Inserire la scelta (Ricordarsi di mettere .xml): ")) {
+					case 1:
+						Reader.setFilenamePers(InputDati.leggiStringaNonVuota(INSERIMENTO));
+						Utility.clearScreen();
+						break;
+					case 2:
+						Reader.setFilenameCod(InputDati.leggiStringaNonVuota(INSERIMENTO));
+						Utility.clearScreen();
+						break;
+					case 3:
+						leave = true;
+						break;
+					default:
+						System.out.println(RUN_TIME_TERRORS);
+						Utility.clearScreen();
+				}
+			}
+			while (!leave);
+		}
+		Reader.readCodiciFiscali(); // Chiamo il metodo che carica in memoria i codici fiscali
+		Reader.readComuni(); // Chiamo il metodo che carica in memoria i comuni
+		Reader.readInputPersone(); //Chiamo il metodo che legge tutto il file delle persone e le cariche in memoria
+		DataProcessing.codeSorting(); // Chiamo il metodo che smista i vari array presenti in dataProcessing
+		Writer.writeOutput(); // Chiamo il metodo che genera l'XML di output
+	}
 }
