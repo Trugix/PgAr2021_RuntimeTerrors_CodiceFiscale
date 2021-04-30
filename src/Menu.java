@@ -8,7 +8,7 @@ public class Menu {
 	private final static String SCELTA_ESCI = "Inserire 3 per confermare e continuare il programma.";
 	private final static String INSERIMENTO = "Inserire il nome del nuovo file (Ricordarsi di mettere .xml): ";
 	private final static String SCELTA_INSERIMENTO = "Inserire la scelta: ";
-	private final static String RUN_TIME_TERRORS = "Errore, codice non riconosciuto.";
+	private final static String RUNTIME_TERRORS = "Errore, codice non riconosciuto.";
 
 
 	public static void stampaMenu() {
@@ -34,7 +34,7 @@ public class Menu {
 						leave = true;
 						break;
 					default:
-						System.out.println(RUN_TIME_TERRORS);
+						System.out.println(RUNTIME_TERRORS);
 						Utility.clearScreen();
 				}
 			}
